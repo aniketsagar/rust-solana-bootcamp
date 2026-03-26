@@ -1,0 +1,3 @@
+* Linked lists
+Linked list is a linear data structure, made up of linked nodes.
+It can only be accessed sequentially 
