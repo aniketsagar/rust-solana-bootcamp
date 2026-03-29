@@ -1,4 +1,5 @@
 pub mod basic_node;
+pub mod common_concepts;
 pub mod fibonacci;
 #[derive(Debug)]
 struct counter {
@@ -16,34 +17,47 @@ impl counter {
 }
 fn main() {
     println!("Hello, world!");
-    let s1 = String::from("hey there!!");
-    read_str(&s1);
-    let mut s2 = String::from("Check this string.");
-    read_str(&s2); // immutable reference
-    // reference last used here
-    // mutable reference is valid after last use of immutable
-    // reference
-    mod_str(&mut s2);
-    println!("{:?}", s2);
 
-    let slice1 = first_word(&s2);
-    println!("{:?}", slice1);
+    let s = String::from("HelloWorld!");
+    let result = common_concepts::first_word(&s);
+    dbg!(result);
+    let s = String::from("HelloWorld!");
+    let result = common_concepts::last_word(&s);
+    dbg!(result);
+    let s = String::from("Hello World!");
+    let result = common_concepts::last_word(&s);
+    dbg!(result);
+    let s = String::from("Hello World!  ");
+    let result = common_concepts::last_word(&s);
+    dbg!(result);
+    // let s1 = String::from("hey there!!");
+    // read_str(&s1);
+    // let mut s2 = String::from("Check this string.");
+    // read_str(&s2); // immutable reference
+    // // reference last used here
+    // // mutable reference is valid after last use of immutable
+    // // reference
+    // mod_str(&mut s2);
+    // println!("{:?}", s2);
 
-    let mut unit_counter = counter { data: 1 };
-    println!("{:?}", &unit_counter.get());
-    unit_counter.increment();
-    println!("{:?}", &unit_counter);
+    // let slice1 = first_word(&s2);
+    // println!("{:?}", slice1);
 
-    println!("Longer string is {:?}", longest(&s1, &s2));
-    println!("Shorter string is {:?}", shortest(&s1, &s2));
-    println!("Shorter string is {:?}", shortest(&s2, &s2));
+    // let mut unit_counter = counter { data: 1 };
+    // println!("{:?}", &unit_counter.get());
+    // unit_counter.increment();
+    // println!("{:?}", &unit_counter);
 
-    let result;
-    {
-        let s3 = String::from("abceeeeeee asdlahdadasdsajdasdadasda");
-        result = shortest(&s3, &s1);
-        println!("{}", result);
-    }
+    // println!("Longer string is {:?}", longest(&s1, &s2));
+    // println!("Shorter string is {:?}", shortest(&s1, &s2));
+    // println!("Shorter string is {:?}", shortest(&s2, &s2));
+
+    // let result;
+    // {
+    //     let s3 = String::from("abceeeeeee asdlahdadasdsajdasdadasda");
+    //     result = shortest(&s3, &s1);
+    //     println!("{}", result);
+    // }
 }
 
 /*
@@ -128,4 +142,18 @@ fn longest<'a>(x: &'a str, y: &'a str) -> &'a str {
 
 fn shortest<'b>(x: &'b str, y: &'b str) -> &'b str {
     if x.len() < y.len() { x } else { y }
+}
+
+fn conditional_multiply(nums: &mut Vec<i32>) {
+    // Multiply even numbers by 3, odd numbers by 2
+    nums.iter_mut().for_each(|num| match *num % 2 {
+        0 => {
+            *num = *num * 3;
+        }
+        1 | -1 => {
+            // handling -ve remainder
+            *num = *num * 2;
+        }
+        _ => {}
+    });
 }
