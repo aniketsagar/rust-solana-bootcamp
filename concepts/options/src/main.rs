@@ -25,6 +25,18 @@ fn main() {
     //.map() = apply function IF value exists
     let opt = Some(2).map(|x| x * 10);
     dbg!(opt);
+
+    let opt = first_word_short_version(s);
+    dbg!(opt);
+
+    let opt = last_char(s);
+    dbg!(opt);
+
+    let opt = last_word_length("rust");
+    dbg!(opt);
+
+    let opt111 = find_first_even_number_fold(vec![1, 3, 8, 5]);
+    dbg!(opt111);
 }
 
 fn find_even(n: i32) -> Option<i32> {
@@ -46,4 +58,33 @@ fn first_word(s: &str) -> Option<String> {
         Some(x) => Some(x.to_string()),
         None => None,
     }
+}
+
+fn first_word_short_version(s: &str) -> Option<String> {
+    s.split_whitespace().next().map(|x| x.to_string())
+}
+
+fn last_char(s: &str) -> Option<char> {
+    // return Some(last charachter)
+    // so  last_char("rust") => Some('t')
+    // and none otherwise
+    // we are using and_then here
+
+    s.split_whitespace().last().and_then(|x| x.chars().last())
+}
+
+fn last_word_length(s: &str) -> Option<usize> {
+    s.split_whitespace().last().map(|word| word.len())
+}
+
+/// already found → keep it
+// not found → check current element
+fn find_first_even_number_fold(nums: Vec<i32>) -> Option<i32> {
+    nums.iter().fold(None, |mut acc, x| match acc {
+        Some(_) => acc,
+        None => match *x % 2 {
+            0 => Some(*x),
+            _ => None,
+        },
+    })
 }
